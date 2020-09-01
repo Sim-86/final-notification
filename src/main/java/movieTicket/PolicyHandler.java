@@ -24,9 +24,14 @@ public class PolicyHandler{
         if(paymentSucceeded.isMe()){
 
             Notification notification = new Notification();
-            notification.setBookingId(paymentSucceeded.getBookingId());
-            //notification.setNotificationId();
-            notification.setNotificationStatus("sent SMS paymentSucceeded");
+            if(("").equals(paymentSucceeded.getBookingId())){
+                notification.setBookingId(5L);
+            }
+            else
+                notification.setBookingId(paymentSucceeded.getBookingId());
+            notification.setNotificationType("SMS");
+            notification.setPhoneNumber("010-1234-5678");
+            notification.setNotificationStatus("send SMS paymentSucceeded");
 
             notificationRepository.save(notification);
 
@@ -39,9 +44,14 @@ public class PolicyHandler{
 
         if(paymentCanceled.isMe()){
             Notification notification = new Notification();
-            notification.setBookingId(paymentCanceled.getBookingId());
-            //notification.setNotificationId();
+            if(("").equals(paymentCanceled.getBookingId())){
+                notification.setBookingId(6L);
+            }
+            else
+                notification.setBookingId(paymentCanceled.getBookingId());
             notification.setNotificationStatus("sent SMS paymentCanceled");
+            notification.setPhoneNumber("010-1234-5678");
+            notification.setNotificationStatus("send SMS paymentSucceeded");
 
             notificationRepository.save(notification);
 
