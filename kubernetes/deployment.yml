@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: notification
-          image: username/notification:latest
+          image: 052937454741.dkr.ecr.ap-northeast-2.amazonaws.com/teamb-notification:latest
           ports:
             - containerPort: 8080
           readinessProbe:

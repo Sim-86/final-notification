@@ -4,6 +4,9 @@ server:
 
 spring:
   profiles: default
+  h2:
+    console:
+      enabled: true
   jpa:
     properties:
       hibernate:
@@ -30,7 +33,14 @@ spring:
         event-out:
           destination: movieTicket
           contentType: application/json
-
+management:
+  health:
+  #    redis:
+  #      enabled: false
+  endpoints:
+    web:
+      exposure:
+        include: '*' #health, info, hystrix.stream, bindings   #'*'
 logging:
   level:
     org.hibernate.type: trace
