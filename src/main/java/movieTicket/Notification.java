@@ -12,6 +12,25 @@ public class Notification {
     private String phoneNumber;
     private String notificationStatus;
     private String notificationType;
+    private Long promotionId;
+    private String note;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public Long getPromotionId() {
+        return promotionId;
+    }
+
+    public void setPromotionId(Long promotionId) {
+        this.promotionId = promotionId;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long notificationId;

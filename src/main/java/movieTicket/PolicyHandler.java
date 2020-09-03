@@ -12,7 +12,6 @@ public class PolicyHandler{
     @Autowired
     NotificationRepository notificationRepository;
 
-
     @StreamListener(KafkaProcessor.INPUT)
     public void onStringEventListener(@Payload String eventString){
 
@@ -57,6 +56,26 @@ public class PolicyHandler{
 
 
             System.out.println("##### listener SendNotification : " + paymentCanceled.toJson());
+        }
+    }
+
+    @StreamListener(KafkaProcessor.INPUT)
+    public void wheneverInsertedPromotion_SendNotification(@Payload InsertedPromotion insertedPromotion) {
+
+        if (insertedPromotion.isMe()) {
+            Notification notification = new Notification();
+            if (("").equals(insertedPromotion.getPromotionId())) {
+                notification.setPromotionId(99999L);  // configMap에서 defulatId 가져오도록 가능한지 확인.
+                notification.setNote("promotionId를 확인하세요");
+            } else {
+                notification.setBookingId(0L); // 그냥 알림 등록에 대한 공지 이기 때문에 bookingID는 없음
+                notification.setNotificationStatus("sent SMS promotionInserted");
+                notification.setPhoneNumber("010-1234-5678");
+                notification.setNote(insertedPromotion.getNote());
+
+                notificationRepository.save(notification);
+                System.out.println("##### listener SendNotification : " + insertedPromotion.toJson());
+            }
         }
     }
 
